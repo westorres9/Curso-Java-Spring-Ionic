@@ -29,7 +29,7 @@ public class CategoryService {
     public CategoryDTO findById(Long id) {
     	Optional<Category> obj = repository.findById(id);
     	Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Resource not Found"));
-    	return new CategoryDTO(entity, entity.getProducts());
+    	return new CategoryDTO(entity);
     }
     
 }
