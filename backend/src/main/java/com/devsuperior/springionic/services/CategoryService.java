@@ -32,6 +32,4 @@ public class CategoryService {
     	return new CategoryDTO(entity);
     }
     
-    
-
 }
