@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +29,7 @@ public class Product implements Serializable{
 	private Double price;
 	private String imgUrl;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	@JoinTable(name = "tb_product_category",
 			joinColumns = @JoinColumn(name = "productId"),
 			inverseJoinColumns = @JoinColumn(name ="categoryId"))
