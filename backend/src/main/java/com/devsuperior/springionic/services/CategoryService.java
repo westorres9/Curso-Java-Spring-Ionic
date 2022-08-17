@@ -2,8 +2,6 @@ package com.devsuperior.springionic.services;
 
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devsuperior.springionic.dto.CategoryDTO;
 import com.devsuperior.springionic.entities.Category;
 import com.devsuperior.springionic.repositories.CategoryRepository;
+import com.devsuperior.springionic.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
@@ -29,8 +28,10 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public CategoryDTO findById(Long id) {
     	Optional<Category> obj = repository.findById(id);
-    	Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity Not found"));
+    	Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Resource not Found"));
     	return new CategoryDTO(entity);
     }
+    
+    
 
 }
