@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.devsuperior.springionic.dto.ClientDTO;
 import com.devsuperior.springionic.entities.Client;
 import com.devsuperior.springionic.repositories.ClientRepository;
 import com.devsuperior.springionic.services.exceptions.ResourceNotFoundException;
@@ -18,15 +20,15 @@ public class ClientService {
 	private ClientRepository repository;
 	
 	@Transactional(readOnly = true)
-	public Page<Client> findAll(Pageable pageable) {
+	public Page<ClientDTO> findAll(Pageable pageable) {
 		Page<Client> page = repository.findAll(pageable);
-		return page;
+		return page.map(x -> new ClientDTO(x));
 	}
 	
 	@Transactional(readOnly = true)
-	public Client findById(Long id) {
+	public ClientDTO findById(Long id) {
 		Optional<Client> obj = repository.findById(id);
 		Client entity = obj.orElseThrow(() -> new ResourceNotFoundException("Resource Not Found"));
-		return entity;
+		return new ClientDTO(entity);
 	}
 }

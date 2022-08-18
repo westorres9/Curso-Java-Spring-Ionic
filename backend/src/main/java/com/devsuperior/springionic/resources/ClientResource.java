@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.devsuperior.springionic.dto.ClientDTO;
 import com.devsuperior.springionic.entities.Client;
 import com.devsuperior.springionic.services.ClientService;
 
@@ -20,14 +21,14 @@ public class ClientResource {
 	private ClientService service;
 	
     @GetMapping
-    public ResponseEntity<Page<Client>> findAll(Pageable pageable) {
-    	Page<Client> page = service.findAll(pageable);
+    public ResponseEntity<Page<ClientDTO>> findAll(Pageable pageable) {
+    	Page<ClientDTO> page = service.findAll(pageable);
     	return ResponseEntity.ok().body(page);
     }
     
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Client> findById(@PathVariable Long id) {
-    	Client dto = service.findById(id);
+    public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
+    	ClientDTO dto = service.findById(id);
     	return ResponseEntity.ok().body(dto);
     }
 
