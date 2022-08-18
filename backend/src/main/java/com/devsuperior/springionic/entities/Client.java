@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -28,25 +29,18 @@ public class Client implements Serializable{
 	private String name;
 	private String email;
 	private String identNumber;
-	private Integer type;
-	
-	@ElementCollection
-	@CollectionTable(name = "tb_phones")
-	private Set<String> phones = new HashSet<>();
-	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "client")
-	private List<Address> addresses = new ArrayList<>();
+	private String phone;
 	
 	public Client() {
 	}
 
-	public Client(Long id, String name, String email, String identNumber, ClientType type) {
+	public Client(Long id, String name, String email, String identNumber, String phone) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.identNumber = identNumber;
-		this.type = type.getCod();
+		this.phone = phone;
+
 	}
 
 	public Long getId() {
@@ -81,24 +75,32 @@ public class Client implements Serializable{
 		this.identNumber = identNumber;
 	}
 
-	public List<Address> getAddresses() {
-		return addresses;
+	
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
-	
-	public void setType(ClientType type) {
-		this.type = type.getCod();
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public ClientType getType() {
-		return ClientType.toEnum(type);
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Client other = (Client) obj;
+		return Objects.equals(id, other.id);
 	}
 	
-	public Set<String> getPhones() {
-		return phones;
-	}
+	
 	
 }
