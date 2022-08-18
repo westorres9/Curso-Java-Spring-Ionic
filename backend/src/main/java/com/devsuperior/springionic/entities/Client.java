@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.devsuperior.springionic.entities.enums.ClientType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "tb_client")
 public class Client implements Serializable{
@@ -33,6 +34,7 @@ public class Client implements Serializable{
 	@CollectionTable(name = "tb_phones")
 	private Set<String> phones = new HashSet<>();
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "client")
 	private List<Address> addresses = new ArrayList<>();
 	
